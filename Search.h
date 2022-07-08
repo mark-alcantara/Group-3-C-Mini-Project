@@ -1,7 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include <string.h>
-
 struct product {
 int prodID;
 char prodName[30];
@@ -9,12 +5,6 @@ int quantity;
 char expDate[10];
 float prodPrice;
 } ;
-
-
-void menu();
-
-
-
 
 
 void Search(){
@@ -76,7 +66,7 @@ char *sp;  //pointer for string
 						else if (ans=='N'|| ans=='n')
 							{
 							fclose(file);
-							printf("back to main menu");
+							Main();
 							}
 						else{
 							printf("Invalid input. Please try again\n");
@@ -97,7 +87,7 @@ char *sp;  //pointer for string
 			else if (ans=='N'|| ans=='n')
 			{
 				fclose(file);
-				printf("back to main menu");
+				Main();
 			}
 			else
 			{
@@ -120,7 +110,7 @@ char *sp;  //pointer for string
 		else if (ans=='N'|| ans=='n')
 		{
 			fclose(file);
-			printf("back to main menu");
+			Main();
 		}
 		else
 		{
@@ -128,11 +118,5 @@ char *sp;  //pointer for string
 		}
 	}		
 fclose(file);		
-}
-
-
-int main (){
- Search();
- printf("\n[a]view");
 }
 
