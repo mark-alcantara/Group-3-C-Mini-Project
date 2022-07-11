@@ -55,7 +55,7 @@ do{	    	////start ID  INPUT
 		if( sscanf(userInput, "%d", &id) != 1){
 			printf("No ID Entered. Please try again. \n");//cant scanf
 			continue;}	
-		if(prod.prodQuantity < 1 || prod.prodQuantity > 100000) {
+		if(prod.prodID < 1 || prod.prodID > 100000) {
 			printf("Invalid ID, Product ID must be [1-99999]. Please try again \n"); //range of ID added 7/11/2022
 			continue;}
 		printf("ID OK:%d\n",id);	
@@ -79,7 +79,7 @@ do{	    	////start ID  INPUT
 				}
 			}
 			fclose(file);	
-	}	while(((flag)||( sscanf(userInput, "%d", &prod.prodID) != 1))||( length < 1 || length > 6));
+	}	while(((flag)||( sscanf(userInput, "%d", &prod.prodID) != 1))||( length < 1 || length > 6)||(prod.prodID<1||prod.prodID>10000));
 		////end ID  INPUT
 	do{		
 		length = 0;
