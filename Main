@@ -4,6 +4,7 @@
 #include <time.h>
 #include "View.h"
 #include "Search.h"
+#include "add.h"
 
 void Add();
 void Edit();
