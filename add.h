@@ -14,9 +14,9 @@ typedef struct item {
 	float prodPrice;	
 }item;
 
-int main() 
+void add() 
 {
-	char userInput[64];
+	char userInput[50];
 	size_t length = 0;
 	int i = 0;
 	int flag = 0;
@@ -30,17 +30,17 @@ int main()
 	if(filep==NULL)		{	
 		printf("Error Opening File.");
 		exit (1);	}	
-	printf("\tADD NEW ITEM \n\n");
+	printf("----Enter Product Detail----\n\n");
 do{	    	////start ID  INPUT	
 		length = 0;
 		flag = 0;
 				
-		printf("Enter ID: ");
+		printf("Enter Product ID: ");
 	    fgets(userInput, 50, stdin);
 	    length = strlen(userInput);
 			
 		if( length < 1 || length > 6) 	{
-			printf("Invalid ID. Please try again\n"); //strlength
+			printf("Product ID must not exceed 99999. Please try again.\n"); //strlength
 			continue;				}
 		length--;	
 		for(i = 0; i < length; ++i)	{
@@ -55,6 +55,9 @@ do{	    	////start ID  INPUT
 		if( sscanf(userInput, "%d", &id) != 1){
 			printf("No ID Entered. Please try again. \n");//cant scanf
 			continue;}	
+		if(prod.prodQuantity < 1 || prod.prodQuantity > 100000) {
+			printf("Invalid ID, Product ID must be [1-99999]. Please try again \n"); //range of ID added 7/11/2022
+			continue;}
 		printf("ID OK:%d\n",id);	
 		
 		FILE *file;
@@ -72,7 +75,7 @@ do{	    	////start ID  INPUT
 			if (id==prod.prodID)
 				{
 					flag=2;
-					printf("Item Already Exist!\n");		
+					printf("Item Already Exist! Please try again\n");		
 				}
 			}
 			fclose(file);	
@@ -83,7 +86,7 @@ do{	    	////start ID  INPUT
 		flag = 0;
 		prod.prodName[30]=0;		
 	
-		printf("Product Description: \n");
+		printf("Product Description (max 30 characters): \n");
 		fgets(userInput, 50, stdin);
 		length = strlen(userInput);
 	 
@@ -102,7 +105,7 @@ do{	    	////start ID  INPUT
 		flag = 0;
 		prod.prodQuantity=0;
 		
-		printf("Product Quantity: \n");
+		printf("Quantity: \n");
 		fgets(userInput, 50, stdin);
 		length = strlen(userInput);
 			
@@ -119,7 +122,7 @@ do{	    	////start ID  INPUT
 			printf("No Quantity Entered. Please try again. \n");//cant scanf
 			continue;}		
 		if(prod.prodQuantity < 1 || prod.prodQuantity > 10000) {
-			printf("Invalid Range of quantities. Please try again. \n"); //range
+			printf("Invalid Range, Quantity must be [1-9999]. Please try again. \n"); //range
 			continue;}
 		
 		printf("QUantity OK:%d\n",prod.prodQuantity);									
@@ -129,7 +132,7 @@ do{	    	////start ID  INPUT
 
 
 		
-printf("Expiration date of Product: (dd/mm/yyyy) \n\n");
+printf("Expiration date of Product: (yyyy-mm-dd) \n\n");
 ///start date	
 	do{		//day start
 		length = 0;
@@ -251,7 +254,7 @@ do{
 		
 		printf("Price OK:%.2f\n",prod.prodPrice);									
 	} while((flag)||( prod.prodPrice < 1 || prod.prodPrice> 10000)||( sscanf(userInput, "%f", &prod.prodPrice) != 1));
-	fprintf(filep,"%d, %s, %d, %d/%d/%d, %.2f\n", prod.prodID, prod.prodName, prod.prodQuantity, prod.expiration.day, prod.expiration.month, prod.expiration.year, prod.prodPrice);
+	fprintf(filep,"%d, %s, %d, %d-%d-%d, %.2f\n", prod.prodID, prod.prodName, prod.prodQuantity,prod.expiration.year,prod.expiration.month, prod.expiration.day, prod.prodPrice);
  	printf("\n Item Added Successfully!");
 
 fclose(filep);
