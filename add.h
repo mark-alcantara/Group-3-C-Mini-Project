@@ -76,7 +76,7 @@ void adding()
 				flag=0;												
 				char input[MAXINPUT] = "";
 				int length,j; 
-				printf("ID: ");
+				printf("Product ID: ");
 				scanf ("%s", input);
 				length = strlen (input);
 				for (j=0;j<length; j++)
@@ -183,7 +183,7 @@ void adding()
 			flag=1;	
 			}
 			else {
-			printf("Invalid Year, Year must be [1900 - 9999]. Please try again.");
+			printf("Invalid Year, Year must be [1900+]. Please try again.");
 			}
 			}while(flag==0);
 			
@@ -243,7 +243,7 @@ void adding()
 			flag=0;												
 			char input[MAXINPUT] = "";
 			int length,j; 
-			printf("\t\tPrice     :    ");
+			printf("\t\tProduct Price     :    ");
 			fflush(stdin);
 			scanf ("%s", input);
 			length = strlen (input);
