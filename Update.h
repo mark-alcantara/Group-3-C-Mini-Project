@@ -15,7 +15,7 @@ void updatedata()
 	FILE * updateit;
 	
 	
-	printf("1. Update Item  2. Back\n");
+	printf("1. Update Item  2. Back");
 	int choice;
 	choice = getch();
 	if (choice == '1')
@@ -63,7 +63,7 @@ void updatedata()
 				}
 		
 
-		printf("\n\t\t\t\t\t\t\t\t  Enter the ID you want to update\n");
+		printf("\nEnter the ID you want to update\n");
 		int upd=0;
 		int linenum=0;
 		
@@ -89,7 +89,7 @@ void updatedata()
 								int length,j; 
 								int foundChar = 0;
 								
-								printf("\n\t\t\t\t\t\t\t\t\tEnter new ID :\n");
+								printf("\nEnter New Product ID : \n");
 								scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -131,7 +131,7 @@ void updatedata()
 								flag=1;												
 								char input[MAXINPUT] = "";
 								int length,j; 
-								printf("\n\n\tDescription[Accepts up to 30 Characters]   :    ");
+								printf("\n\nDescription[Accepts up to 30 Characters] : ");
 								fflush(stdin);
 								memset(newName,0,32);
 								fgets(newName,32,stdin);
@@ -152,7 +152,7 @@ void updatedata()
 								int length,j; 
 								int foundChar = 0;
 								
-								printf("\n\t\t\t\t\t\t\t\t\tEnter new Quantity :\n");
+								printf("\nEnter New Product Quantity :\n");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -195,8 +195,8 @@ void updatedata()
 								int length,j; 
 								int foundChar = 0;
 								
-									printf("\n\t\t\t\t\t\t\t\t\tEnter new expiration Date \n");
-										printf("\n\t\t\t\t\t\tYear :");
+									printf("\nEnter New Product Expiration Date \n");
+										printf("\nYear :");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -214,7 +214,7 @@ void updatedata()
 									}
 									
 								newyear=atoi(input);
-								if (newyear>0 && newyear<100000)
+								if (newyear>1900)
 									{	
 										if(checkIDifExist(newyear)==1)	{
 										printf("Item Already Exist");
@@ -240,7 +240,7 @@ void updatedata()
 								int length,j; 
 								int foundChar = 0;
 							
-										printf("\n\t\t\t\t\t\t Month:");
+										printf("\nMonth : ");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -258,7 +258,7 @@ void updatedata()
 									}
 									
 								newmonth=atoi(input);
-								if (newmonth>0 && newmonth<100000)
+								if (newmonth>0 && newmonth<13)
 									{	
 										if(checkIDifExist(newmonth)==1)	{
 										printf("Item Already Exist");
@@ -284,7 +284,7 @@ void updatedata()
 								int foundChar = 0;
 							
 										
-										printf("\n\t\t\t\t\t\t Day :");
+										printf("\nDay :");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -302,7 +302,7 @@ void updatedata()
 									}
 									
 								newday=atoi(input);
-								if (newday>0 && newday<100000)
+								if (newday>0 && newday<32)
 									{	
 										if(checkIDifExist(newday)==1)	{
 										printf("Item Already Exist");
@@ -329,7 +329,7 @@ void updatedata()
 								int foundChar = 0;
 							
 										
-										printf("\n\t\t\t\t\t\tPrice :");
+										printf("\nEnter New Product Price :");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -368,15 +368,32 @@ void updatedata()
 										temp[j].prodPrice = newprodPrice;
 									} 
 								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %0.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+								flag = 1;
 							}
-
+		if (flag == 1)
+		{
 		printf("Updated!");
-	
 		fclose(updateitRead);
-		fclose(updateit);
-
-		
+		fclose(updateit);	
+		}
+		else if (flag == 0)
+		{
+			printf("Nothing to update");
+			menu();
+		}
 		fflush(stdin);
+		char ans;
+		printf("Add more items ? y/n : ");
+		ans = getch();
+		if (ans == ('y'||'Y'))
+		{
+			updatedata();
+		}
+		else
+		{
+			menu();
+			getch();
+		}
 	}
 	else if(choice == '2'){
 		menu();
@@ -419,8 +436,8 @@ int checkIDline(int n){
 			
 					if (n == v[i].prodID)
 						{
-							printf("found");
-							printf("Line entry: %d",linenum);
+							printf("Matched ");
+							printf("%d result",linenum);
 							return linenum;
 						
 						}
@@ -431,4 +448,3 @@ int checkIDline(int n){
 				return linenum;
 			
 }
-
