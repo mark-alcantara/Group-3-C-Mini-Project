@@ -1,262 +1,357 @@
-typedef struct date {
-	
-	int day;
-	int month;
-	int year;
-}date;
+//Add
+#include <stdio.h>
+#include <conio.h>
+#include <string.h>
+#include <windows.h>
+#include <malloc.h>
+#include <stdlib.h>
+#include <time.h>
 
 
-typedef struct item {
-	int prodID;
-	char prodName[30];
-	int prodQuantity;
-	date expiration;
-	float prodPrice;	
-}item;
+#define MAXINPUT 100
 
-void add() 
+
+void menu();
+int checkIDifExist(int prodID);
+
+
+
+int num,i, SN;
+FILE *fp1, *fp2, *fp3;
+
+struct date
 {
-	char userInput[50];
+int day;
+int month;
+int year;
+};
+
+struct prod //creating a structure to store the details
+{
+int SN;
+int prodID;
+char prodName[30];
+int prodQuantity;
+struct date exp;
+float prodPrice;
+} v[200], vs[200], temp[200]; //Creating an structure to use multiple data types
+
+
+
+
+
+void adding()
+{
+	int ssubMenu, SN;
+	char yesno;
+	system("cls");
+	int flag=0;
+	int pid;
+	int i =1;
+	char *sp;
 	size_t length = 0;
-	int i = 0;
-	int flag = 0;
-	item prod;
-	char *sp; //pointer for string
-	int id; 
 	char line [100]; // size of chars in a line
-	FILE *filep;
-	filep=fopen ("Inventory.csv", "a");
-
-	if(filep==NULL)		{	
-		printf("Error Opening File.");
-		exit (1);	}	
-	printf("----Enter Product Detail----\n\n");
-do{	    	////start ID  INPUT	
-		length = 0;
-		flag = 0;
-				
-		printf("Enter Product ID: ");
-	    fgets(userInput, 50, stdin);
-	    length = strlen(userInput);
-			
-		if( length < 1 || length > 6) 	{
-			printf("Product ID must not exceed 99999. Please try again.\n"); //strlength
-			continue;				}
-		length--;	
-		for(i = 0; i < length; ++i)	{
-			if(userInput[i] < '0' || userInput[i] > '9'){
-				flag = 1;
-				break;	
-			}
-		}	
-		if(flag){
-			printf("Invalid Input. Please try again. \n");//character
-			continue;}	
-		if( sscanf(userInput, "%d", &id) != 1){
-			printf("No ID Entered. Please try again. \n");//cant scanf
-			continue;}	
-		if(prod.prodID < 1 || prod.prodID > 100000) {
-			printf("Invalid ID, Product ID must be [1-99999]. Please try again \n"); //range of ID added 7/11/2022
-			continue;}
-		printf("ID OK:%d\n",id);	
+	//	drawBorder(5, 3, 100, 24);
+	//	gotoxy(30, 5);
+	printf("1.Enter Product Details\t\t2.Back");
+	ssubMenu = getch();
+	switch (ssubMenu)
+	{
 		
-		FILE *file;
-		file=fopen("Inventory.csv","r");
-	
-		if (file == NULL)
-     	   {
-			printf("Error Opening File");
-			exit(1);
-			}
-		while (fgets(line, 100, file) !=NULL)
-			{
-			sp = strtok(line, ",");
-			prod.prodID = atoi(sp);
-			if (id==prod.prodID)
-				{
-					flag=2;
-					printf("Item Already Exist! Please try again\n");		
-				}
-			}
-			fclose(file);	
-	}	while(((flag)||( sscanf(userInput, "%d", &prod.prodID) != 1))||( length < 1 || length > 6)||(prod.prodID<1||prod.prodID>10000));
-		////end ID  INPUT
-	do{		
-		length = 0;
-		flag = 0;
-		prod.prodName[30]=0;		
-	
-		printf("Product Description (max 30 characters): \n");
-		fgets(userInput, 50, stdin);
-		length = strlen(userInput);
-	 
- 		if( length < 1 || length > 31) {
-			printf("Exceed description limit(Max 30 chars including spaces). Please try again\n"); //strlength
-			continue;			
+		case '1':
+			system("cls");
+			//	drawBorder(5, 1, 100, 60);
+			//	gotoxy(0, 0);
+			//	gotoxy(30, 3);
+			//	printf("Enter the how many items you want to add: ");
+			//	scanf("%d", &num);
+			fp1 = fopen("adding.csv", "a"); //main data base for the prodetables bought by the keeper
+			//	for (i = 1; i <= num; i++)			//this creates a loop of this block of code until the given condition matches
+			//	{
+			//	printf("\n\tP.N. %d", i);
+			printf("----- Enter Product Details -----\n");
+			//ID Validation start
+			do 
+			{	
+				flag=0;												
+				char input[MAXINPUT] = "";
+				int length,j; 
+				printf("ID: ");
+				scanf ("%s", input);
+				length = strlen (input);
+				for (j=0;j<length; j++)
+					{
+						if (!isdigit(input[j]))
+							{
+								continue;
+							}
 					}
-		if( sscanf(userInput, "%s", &prod.prodName) != 1){
-			printf("No Description Entered. Please try again. \n");//cant scanf
-			continue;}	
-	}while(( length < 1 || length > 31)||( sscanf(userInput, "%s", &prod.prodName) != 1));
-	//Desciption Input
+				v[i].prodID=atoi(input);
+				if (v[i].prodID>0 && v[i].prodID<100000)
+					{
+					
+						
+						if(checkIDifExist(v[i].prodID)==1)	{
+						printf("Item Already Exist! Please try again");
+						continue;
+							}
+							else{
+								flag=1;
+							}
+					}
+				else 
+					{
+						printf("Invalid ID, Product ID must be [1-99999]. Please try again");
+					}
 	
-	do{   /////Start Quantity Input
-		length = 0;
-		flag = 0;
-		prod.prodQuantity=0;
-		
-		printf("Quantity: \n");
-		fgets(userInput, 50, stdin);
-		length = strlen(userInput);
-			
-		length--;	
-		for(i = 0; i < length; ++i){
-			if(userInput[i] < '0' || userInput[i] > '9')	{
-				flag = 1;
-				break;		}		
-			}
-		if(flag){
-			printf("Invalid Input. Please enter Quantity numbers. \n");//character
-			continue;	}	
-		if(sscanf(userInput, "%d", &prod.prodQuantity) != 1){
-			printf("No Quantity Entered. Please try again. \n");//cant scanf
-			continue;}		
-		if(prod.prodQuantity < 1 || prod.prodQuantity > 10000) {
-			printf("Invalid Range, Quantity must be [1-9999]. Please try again. \n"); //range
-			continue;}
-		
-		printf("QUantity OK:%d\n",prod.prodQuantity);									
-	} while((flag)||( prod.prodQuantity < 1 || prod.prodQuantity > 10000)||( sscanf(userInput, "%d", &prod.prodQuantity) != 1));
 	
-//end Quantity Input
-
-
-		
-printf("Expiration date of Product: (yyyy-mm-dd) \n\n");
-///start date	
-	do{		//day start
-		length = 0;
-		flag = 0;
-		prod.expiration.day=0;
-
-		
-		printf("Enter day: ");
-		fgets(userInput, 50, stdin);
-		length = strlen(userInput);
+			}while(flag==0);
+			//ID Validation end
+			//Description Validation start
 			
-		length--;	
-		for(i = 0; i < length; ++i){
-		if(userInput[i] < '0' || userInput[i] > '9')
-		{
-			flag = 1;
-			break;		}		
-		}
-		if(flag){
-			printf("Invalid Input. Please enter numbers. \n");//character
-			continue;
-				}	
-		if(sscanf(userInput, "%d", & prod.expiration.day) != 1){
-			 prod.expiration.day== 0;
-			 printf("No Expiration day (--/mm/yy)\n");
-			continue;}		
-		if( prod.expiration.day < 0 ||  prod.expiration.day > 31) {
-			printf("Invalid Range of days. Please try again. \n"); //range
-			continue;}
-		
-		printf("day ok:%d\n",prod.expiration.day);									
-	} while((flag)||( prod.expiration.day < 0||  prod.expiration.day > 31));
-///	day end
-	do{	///month start
-		length = 0;
-		flag = 0;
-		prod.expiration.month;
-
-		
-		printf("Enter Month: ");
-		fgets(userInput, 50, stdin);
-		length = strlen(userInput);
 			
-		length--;	
-			for(i = 0; i < length; ++i){
-			if(userInput[i] < '0' || userInput[i] > '9')
+			
+			do 
 			{
-				flag = 1;
-				break;		}		
-			}
-			if(flag){
-				printf("Invalid Input. Please enter numbers. \n");//character
+				flag=1;												
+				char input[MAXINPUT] = "";
+				int length,j; 
+				printf("\n\n\tEnter Product Description (max 30 characters) :    ");
+				fflush(stdin);
+				//	scanf(" %s", &v[i].prodName);
+				memset(v[i].prodName,0,32);
+				fgets(v[i].prodName,32,stdin);
+				length = strlen (v[i].prodName);
+				v[i].prodName[length-1]='\0';
+			}while(flag==0);
+			//Description Validation end
+			//Quantity Validation start
+			do 
+			{
+				flag=0;												
+				
+				int length,j; 
+				char input[MAXINPUT] = "";
+				printf("\tQuantity :    ");
+				
+				//			scanf(" %d", &v[i].prodQuantity);
+				//			if (v[i].prodQuantity>0 && v[i].prodQuantity<10000){
+				//				flag=1;	
+				//			}
+				//			else {
+				//				printf("Invalid Input. Please try again.");
+				//			}
+				fflush(stdin);
+				scanf ("%s", input);
+				length = strlen (input);
+				for (j=0;j<length; j++)
+				{
+				if (!isdigit(input[j]))
+				{
 				continue;
-				}	
-			if(sscanf(userInput, "%d", & prod.expiration.month) != 1){
-				 	prod.expiration.month= 0;
-				 	if ((prod.expiration.day==0 )&& (prod.expiration.month==0)){ 
-				 	printf("No Expiration day and month (--/--/yy)\n");}
-				 	else {
-				 		printf("No Expiration month (dd/--/yy)\n");
-					 }
-				continue;}		
-			if( 	prod.expiration.month < 0 || 	prod.expiration.month > 12) {
-				printf("Invalid Range of months. Please try again. \n"); //range
-				continue;}
-		
-				printf("Month OK:%d\n",	prod.expiration.month);									
-	} while((flag)||( 	prod.expiration.month < 0 ||  	prod.expiration.month > 12));
-	///month end
-	do{			//year start
-		length = 0;
-		flag = 0;
-		prod.expiration.year;
-
-		printf("Enter year: ");
-		fgets(userInput, 50, stdin);
-		length = strlen(userInput);
-			
-		length--;	
-		for(i = 0; i < length; ++i){
-			if(userInput[i] < '0' || userInput[i] > '9')
+				}
+				}
+				v[i].prodQuantity=atoi(input);
+				if (v[i].prodQuantity>0 && v[i].prodQuantity<100000)
+				{
+				flag=1;	
+				}
+				else {
+				printf("Invalid Input. Please enter Quantity numbers.");
+				}
+			}while(flag==0);
+			//Quantity Validation start
+			//Expiry date start
+			do{
+			flag=0;												
+			char input[MAXINPUT] = "";
+			int length,j; 
+			printf("\n\n\tInput Expiration date (yyyy-mm-dd): \n");
+			printf("\t\t Year [1900+]:");
+			scanf ("%s", input);
+			length = strlen (input);
+			for (j=0;j<length; j++)
 			{
-				flag = 1;
-				break;		}		
-			}
-		if(flag){
-			printf("Invalid Input. Please enter numbers. \n");//character
+			if (!isdigit(input[j]))
+			{
 			continue;
-			}	
-		if(sscanf(userInput, "%d", &prod.expiration.year) != 1){
-		 	prod.expiration.year= 0;
-			if (((prod.expiration.day==0 )&& (prod.expiration.month==0))&& (prod.expiration.year==0)){ 
-		 		printf("No Expiration day, month and year (--/--/--)\n");}
-		 	else {
-				printf("No Expiration year (dd/month/--)\n");
-				 }
-				continue;}		
-		if( prod.expiration.year < 0 || 	prod.expiration.year > 10000) {
-			printf("Invalid Range of year. Please try again. \n"); //range
-			continue;}
-		
-		printf("Year OK:%d\n",prod.expiration.year);									
-	} while((flag)||( prod.expiration.year < 0 ||  	prod.expiration.year > 10000));
-	///year end
-
-do{
-	length = 0;
-	flag = 0;
-	prod.prodPrice;
+			}
+			}
+			v[i].exp.year=atoi(input);
+			if (v[i].exp.year>1900)
+			{
+			flag=1;	
+			}
+			else {
+			printf("Invalid Year, Year must be [1900 - 9999]. Please try again.");
+			}
+			}while(flag==0);
+			
+			do{	
+			flag=0;												
+			char input[MAXINPUT] = "";
+			int length,j; 
+			printf("\t\t Month :");
+			fflush(stdin);
+			scanf ("%s", input);
+			length = strlen (input);
+			for (j=0;j<length; j++)
+			{
+			if (!isdigit(input[j]))
+			{
+			continue;
+			}
+			}
+			v[i].exp.month=atoi(input);
+			if (v[i].exp.month>0 && v[i].exp.month<13)
+			{
+			flag=1;	
+			}
+			else {
+			printf("Invalid Month, Month must be [01 - 12]. Please try again.");
+			}
+			}while(flag==0);
+			
+			
+			do{
+			flag=0;												
+			char input[MAXINPUT] = "";
+			int length,j; 
+			printf("\t\t Day :");
+			fflush(stdin);
+			scanf ("%s", input);
+			length = strlen (input);
+			for (j=0;j<length; j++)
+			{
+			if (!isdigit(input[j]))
+			{
+			continue;
+			}
+			}
+			v[i].exp.day=atoi(input);
+			if (v[i].exp.day>0 && v[i].exp.day<32)
+			{
+			flag=1;	
+			}
+			else {
+			printf("Invalid Day, Day must be [01 - 31]. Please try again.");
+			}
+			}while(flag==0);
+			//Expiry date Validation end
+			//Price Validation start
+			do{	
+			flag=0;												
+			char input[MAXINPUT] = "";
+			int length,j; 
+			printf("\t\tPrice     :    ");
+			fflush(stdin);
+			scanf ("%s", input);
+			length = strlen (input);
+			for (j=0;j<length; j++)
+			{
+			if (!isdigit(input[j]))
+			{
+			continue;
+			}
+			}
+			v[i].prodPrice=atof(input);
+			if (v[i].prodPrice>0 && v[i].prodPrice<10000)
+			{
+			flag=1;	
+			}
+			else {
+			printf("Invalid Range of prices. Please try again.");
+			}
+			}while(flag==0);
+			printf("%d, %s, %d, %d/%d/%d, %0.2f\n",v[i].prodID, v[i].prodName, v[i].prodQuantity,v[i].exp.year,v[i].exp.month,v[i].exp.day,v[i].prodPrice);
+			
+		fprintf(fp1, "%d, %s, %d, %d/%d/%d, %0.2f\n",v[i].prodID, v[i].prodName, v[i].prodQuantity,v[i].exp.year,v[i].exp.month,v[i].exp.day,v[i].prodPrice); //this gets saved in the adding.csv
 	
-	printf("Price : \n");
-	fgets(userInput, 50, stdin);
-	if(sscanf(userInput, "%f", &prod.prodPrice) != 1){
-		printf("Invalid Input. Please try again. \n");//cant scanf
-		continue;}		
-	if(prod.prodPrice < 1 ||prod.prodPrice > 10000) {
-		printf("Invalid Range of prices. Please try again. \n"); //range
-		continue;}
 		
-		printf("Price OK:%.2f\n",prod.prodPrice);									
-	} while((flag)||( prod.prodPrice < 1 || prod.prodPrice> 10000)||( sscanf(userInput, "%f", &prod.prodPrice) != 1));
-	fprintf(filep,"%d, %s, %d, %d-%d-%d, %.2f\n", prod.prodID, prod.prodName, prod.prodQuantity,prod.expiration.year,prod.expiration.month, prod.expiration.day, prod.prodPrice);
- 	printf("\n Item Added Successfully!");
+			//	}
+			i++;
+			printf("\n\tItem Added Successfully!\n");
+			getch();
+			fclose(fp1);
+			
+		printf("[1] Add New Item\n");
+		printf("[2] Back to menu");
+		fflush(stdin);
+		yesno = getch();
+	switch (yesno){
+		
+		case '1':
+		
+		system("cls");
+		printf("go back to main");
+		adding();
+		break;
+		
+		case '2':
+		
+		system("cls");
+		menu();
+		break;
+		
+		default:
+			exit(1);
+	}
+		
+			//menu();
 
-fclose(filep);
-
+		case '2':
+		
+		system("cls");
+		menu();
+		break;
+		
+	
+	
 }
+	
+}
+
+
+
+
+
+
+int checkIDifExist(int prodID){
+	char line [100];
+	char *sp;
+	FILE* filep = fopen("adding.csv", "r");	
+				while (fgets(line, 100, fp1) !=NULL)
+				{
+				sp = strtok(line, ",");
+				v[i].prodID = atoi(sp);
+				
+				sp = strtok(NULL,",");
+				strcpy(v[i].prodName, sp);
+				
+				sp = strtok(NULL, ",");
+				v[i].prodQuantity = atoi(sp);
+				
+				sp = strtok(NULL,"/");
+				v[i].exp.year= atoi(sp);
+				sp = strtok(NULL,"/");
+				v[i].exp.month= atoi(sp);
+				sp = strtok(NULL,",");
+				v[i].exp.day= atoi(sp);
+				
+				sp = strtok(NULL,"\0");
+				v[i].prodPrice = atof(sp);
+				
+				if (prodID== v[i].prodID)
+				{
+				printf("found");
+				return 1;
+				
+				}
+					i++;
+				}
+			
+				fclose(filep);
+				return 0;
+			
+}
+
