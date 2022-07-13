@@ -92,7 +92,7 @@ void adding()
 					
 						
 						if(checkIDifExist(v[i].prodID)==1)	{
-						printf("Item Already Exist! Please try again");
+						printf("Item Already Exist! Please try again\n");
 						continue;
 							}
 							else{
@@ -101,7 +101,7 @@ void adding()
 					}
 				else 
 					{
-						printf("Invalid ID, Product ID must be [1-99999]. Please try again");
+						printf("Invalid ID, Product ID must be [1-99999]. Please try again\n");
 					}
 	
 	
@@ -116,7 +116,7 @@ void adding()
 				flag=1;												
 				char input[MAXINPUT] = "";
 				int length,j; 
-				printf("\n\n\tEnter Product Description (max 30 characters) :    ");
+				printf("Enter Product Description (max 30 characters) : ");
 				fflush(stdin);
 				//	scanf(" %s", &v[i].prodName);
 				memset(v[i].prodName,0,32);
@@ -132,7 +132,7 @@ void adding()
 				
 				int length,j; 
 				char input[MAXINPUT] = "";
-				printf("\tQuantity :    ");
+				printf("Quantity : ");
 				
 				//			scanf(" %d", &v[i].prodQuantity);
 				//			if (v[i].prodQuantity>0 && v[i].prodQuantity<10000){
@@ -157,7 +157,7 @@ void adding()
 				flag=1;	
 				}
 				else {
-				printf("Invalid Input. Please enter Quantity numbers.");
+				printf("Invalid Input. Please enter Quantity numbers.\n");
 				}
 			}while(flag==0);
 			//Quantity Validation start
@@ -166,8 +166,8 @@ void adding()
 			flag=0;												
 			char input[MAXINPUT] = "";
 			int length,j; 
-			printf("\n\n\tInput Expiration date (yyyy-mm-dd): \n");
-			printf("\t\t Year [1900+]:");
+			printf("Input Expiration date (yyyy-mm-dd) \n");
+			printf("Year [1900+]: ");
 			scanf ("%s", input);
 			length = strlen (input);
 			for (j=0;j<length; j++)
@@ -183,7 +183,7 @@ void adding()
 			flag=1;	
 			}
 			else {
-			printf("Invalid Year, Year must be [1900+]. Please try again.");
+			printf("Invalid Year, Year must be [1900+]. Please try again.\n");
 			}
 			}while(flag==0);
 			
@@ -191,7 +191,7 @@ void adding()
 			flag=0;												
 			char input[MAXINPUT] = "";
 			int length,j; 
-			printf("\t\t Month :");
+			printf("Month [01 - 12]: ");
 			fflush(stdin);
 			scanf ("%s", input);
 			length = strlen (input);
@@ -208,7 +208,7 @@ void adding()
 			flag=1;	
 			}
 			else {
-			printf("Invalid Month, Month must be [01 - 12]. Please try again.");
+			printf("Invalid Month, Month must be [01 - 12]. Please try again.\n");
 			}
 			}while(flag==0);
 			
@@ -217,7 +217,7 @@ void adding()
 			flag=0;												
 			char input[MAXINPUT] = "";
 			int length,j; 
-			printf("\t\t Day :");
+			printf("Day [01-31]: ");
 			fflush(stdin);
 			scanf ("%s", input);
 			length = strlen (input);
@@ -243,7 +243,7 @@ void adding()
 			flag=0;												
 			char input[MAXINPUT] = "";
 			int length,j; 
-			printf("\t\tProduct Price     :    ");
+			printf("Product Price : ");
 			fflush(stdin);
 			scanf ("%s", input);
 			length = strlen (input);
@@ -260,7 +260,7 @@ void adding()
 			flag=1;	
 			}
 			else {
-			printf("Invalid Range of prices. Please try again.");
+			printf("Invalid Price, Please try again.\n");
 			}
 			}while(flag==0);
 			printf("%d, %s, %d, %d/%d/%d, %0.2f\n",v[i].prodID, v[i].prodName, v[i].prodQuantity,v[i].exp.year,v[i].exp.month,v[i].exp.day,v[i].prodPrice);
@@ -270,7 +270,7 @@ void adding()
 		
 			//	}
 			i++;
-			printf("\n\tItem Added Successfully!\n");
+			printf("\nItem Added Successfully!\n");
 			getch();
 			fclose(fp1);
 			
