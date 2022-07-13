@@ -178,7 +178,7 @@ void adding()
 			}
 			}
 			v[i].exp.year=atoi(input);
-			if (v[i].exp.year>1900)
+			if (v[i].exp.year>1900 && v[i].exp.year<10000) 
 			{
 			flag=1;	
 			}
