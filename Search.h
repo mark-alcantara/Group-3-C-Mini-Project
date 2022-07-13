@@ -1,13 +1,16 @@
+//Search
+
 struct product {
 int prodID;
 char prodName[30];
 int quantity;
 char expDate[10];
 float prodPrice;
-} ;
+};
 
 
-void Search(){
+
+void searchdata(){
 char ans;
 struct product prod;
 int id;
@@ -17,7 +20,7 @@ char line [100]; // size of chars in a line
 char *sp;  //pointer for string
 
 	FILE *file;
-	file=fopen("Inventory.csv","r");
+	file=fopen("adding.csv","r");
 	
 	if (file == NULL)
         {
@@ -61,12 +64,12 @@ char *sp;  //pointer for string
 						if (ans=='Y'|| ans=='y')
 							{
 								fclose(file);
-								Search();
+								searchdata();
 							}
 						else if (ans=='N'|| ans=='n')
 							{
 							fclose(file);
-							Main();
+					//	main();
 							}
 						else{
 							printf("Invalid input. Please try again\n");
@@ -82,12 +85,12 @@ char *sp;  //pointer for string
 			if (ans=='Y'|| ans=='y')
 			{
 				fclose(file);
-				Search();
+				searchdata();
 			}
 			else if (ans=='N'|| ans=='n')
 			{
 				fclose(file);
-				Main();
+			//	 main();
 			}
 			else
 			{
@@ -105,12 +108,11 @@ char *sp;  //pointer for string
 		if (ans=='Y'|| ans=='y')
 		{
 			fclose(file);
-			Search();
+			searchdata();
 		}
 		else if (ans=='N'|| ans=='n')
 		{
 			fclose(file);
-			Main();
 		}
 		else
 		{
@@ -119,4 +121,3 @@ char *sp;  //pointer for string
 	}		
 fclose(file);		
 }
-
