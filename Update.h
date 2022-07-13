@@ -284,7 +284,7 @@ void updatedata()
 								int foundChar = 0;
 							
 										
-										printf("\n\t\t\t\t\t\t Price :");
+										printf("\n\t\t\t\t\t\t Day :");
 										scanf("%s", &input);
 								length = strlen (input);
 								for (j=0;j<length; j++)
@@ -336,18 +336,14 @@ void updatedata()
 									{
 										if (!isdigit(input[j]))
 											{
-												foundChar = 1;
-												printf("Invalid Input. Please try again.");
-												break;
+											continue;
 											}
 									}
 									
-									if(foundChar == 1) {
-										continue;
-									}
+								
 									
 								newprodPrice=atoi(input);
-								if (newprodPrice>0 && newprodPrice<100000)
+								if (newprodPrice>0 && newprodPrice<10000)
 									{	
 										if(checkIDifExist(newprodPrice)==1)	{
 										printf("Item Already Exist");
@@ -371,21 +367,25 @@ void updatedata()
 										temp[j].exp.year=newyear;
 										temp[j].prodPrice = newprodPrice;
 									} 
-								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %0.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
 							}
 
 		printf("Updated!");
 	
 		fclose(updateitRead);
 		fclose(updateit);
-		getch();
-		menu();
+
+		
+		fflush(stdin);
 	}
 	else if(choice == '2'){
 		menu();
 		getch();
 	}
+		
+	
 }
+	
 
 
 int checkIDline(int n){
