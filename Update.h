@@ -13,16 +13,16 @@ void updatedata()
 	int i = 1, j;
 	FILE *updateitRead;
 	FILE * updateit;
+
 	
-	
-	printf("1. Update Item  2. Back");
+	printf("[1] Update Item  [2] Back");
 	int choice;
 	choice = getch();
 	if (choice == '1')
 	{
 		system("CLS");
-
-		updateitRead = fopen("adding.csv", "r");
+	
+		updateitRead = fopen("Inventory_ST_NoBOM.csv", "r");
 		if (updateitRead == NULL)
 			{
 				printf("Error Opening File");
@@ -31,37 +31,26 @@ void updatedata()
 		
 		while (fgets(line, 100, updateitRead) !=NULL)
 			{
-				sp = strtok(line, ",");
+				sp = strtok(line, ("\",\"")  );
 				temp[i].prodID = atoi(sp);
 				
-				sp = strtok(NULL,",");
+				sp = strtok(NULL,("\",\"") );
 				strcpy(temp[i].prodName, sp);
 				
-				sp = strtok(NULL, ",");
+				sp = strtok(NULL, ("\",\"") );
 				temp[i].prodQuantity = atoi(sp);
 				
-				sp = strtok(NULL,"/");
+				sp = strtok(NULL,"-");
 				temp[i].exp.year= atoi(sp);
-				sp = strtok(NULL,"/");
+				sp = strtok(NULL,"-");
 				temp[i].exp.month= atoi(sp);
-				sp = strtok(NULL,",");
+				sp = strtok(NULL,("\",\""));
 				temp[i].exp.day= atoi(sp);
 				
-				sp = strtok(NULL,"\0");
+				sp = strtok(NULL,("\",\"") );
 				temp[i].prodPrice = atof(sp);
 				i++;
-			}
-			printf("\n \n \n");
-			printf("                             **** INVENTORY ****\n");
-			printf("----------------------------------------------------------------------------------------- \n");
-			printf("    ID     |          Description            |  Quantity  |  Expiration Date |  Price \n");
-			printf("----------------------------------------------------------------------------------------- \n");
-			for (j = 1; j < i; j++)
-				{
-
-					printf("%d. %-8d %-33s %-13d %-1d/%d/%d\t\t%.2f\n", j, temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
-				}
-		
+			}printf("AAAAAAAAAAAAAAAAAAAAAA");
 
 		printf("\nEnter the ID you want to update\n");
 		int upd=0;
@@ -69,12 +58,12 @@ void updatedata()
 		
 		
 		float newprodPrice;
-			char newName[30];
+		char newName[30];
 		int newID,newqty,newyear,newmonth,newday;
 		scanf("%d", &upd);
 
 		linenum = checkIDline(upd);
-		updateit = fopen("adding.csv", "w");
+		updateit = fopen("Inventory_ST_NoBOM.csv", "w");
 		
 		
 		for (j=1; j <i; j++)
@@ -170,7 +159,7 @@ void updatedata()
 									}
 									
 								newqty=atoi(input);
-								if (newqty>0 && newqty<10000)
+								if (newqty>0 && newqty<100000)
 									{	
 										if(checkIDifExist(newqty)==1)	{
 										printf("Item Already Exist");
@@ -410,37 +399,38 @@ int checkIDline(int n){
 	char *sp;
 	int i=0;
 	int linenum=0;
-	FILE* filep = fopen("adding.csv", "r");	
+	FILE* filep = fopen("Inventory_ST_NoBOM.csv", "r");	
 				while (fgets(line, 100, filep) !=NULL)
+		{
+			linenum+=1;
+			sp = strtok(line, ("\",\""));
+			v[i].prodID = atoi(sp);
+			 	
+			sp = strtok(NULL,("\",\""));
+			strcpy(v[i].prodName, sp);
+			 	
+			sp = strtok(NULL, ("\",\""));
+			v[i].prodQuantity = atoi(sp);
+			 	
+			sp = strtok(NULL,("-"));
+			v[i].exp.year= atoi(sp);
+			sp = strtok(NULL,("-"));
+			v[i].exp.month= atoi(sp);
+			sp = strtok(NULL,("\",\""));
+			v[i].exp.day= atoi(sp);
+			 	
+			sp = strtok(NULL,("\",\""));
+			v[i].prodPrice = atof(sp);
+	
+			
+			if (n==v[i].prodID)
 				{
-						linenum+=1;
-					sp = strtok(line, ",");
-					v[i].prodID = atoi(sp);
-					
-					sp = strtok(NULL,",");
-					strcpy(v[i].prodName, sp);
-					
-					sp = strtok(NULL, ",");
-					v[i].prodQuantity = atoi(sp);
-					
-					sp = strtok(NULL,"/");
-					v[i].exp.year= atoi(sp);
-					sp = strtok(NULL,"/");
-					v[i].exp.month= atoi(sp);
-					sp = strtok(NULL,",");
-					v[i].exp.day= atoi(sp);
-					
-					sp = strtok(NULL,"\0");
-					v[i].prodPrice = atof(sp);
-			
-			
-					if (n == v[i].prodID)
-						{
 							printf("Matched ");
 							printf("%d result",linenum);
 							return linenum;
 						
 						}
+						
 						
 				}
 			
