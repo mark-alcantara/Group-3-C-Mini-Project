@@ -178,12 +178,12 @@ void adding()
 			}
 			}
 			v[i].exp.year=atoi(input);
-			if (v[i].exp.year>1899 && v[i].exp.year<9999 )
+			if (v[i].exp.year>1899 && v[i].exp.year<10000 )
 			{
 			flag=1;	
 			}
 			else {
-			printf("Invalid Year, Year must be [1900 +]. Please try again.\n");
+			printf("Invalid Year, Year must be [1900 - 9999]. Please try again.\n");
 			}
 			}while(flag==0);
 			
