@@ -12,7 +12,7 @@ void View(){
 	char expDate[10];
 	float prodPrice;
 	char line[100],*sp;
-	int ans;
+	char 	ans;
 
 	FILE *file;
 	file=fopen("adding.csv","r");
@@ -47,15 +47,33 @@ void View(){
 
 			printf("    %-8d %-33s %-13d %-15s    %.02f \n",prodID, prodName, quantity,expDate,prodPrice);	
 			
-		}
-
-	printf("----------------------------------------------------------------------------------------- \n");
-
-
-
-	fclose(file);
-printf("Press any key to go back\n");
-scanf("%d",ans);
-
+			
+			
+			
 }
 
+printf("----------------------------------------------------------------------------------------- \n");
+	fclose(file);
+printf("[1]Go back to main \n");
+printf("[2]Exit\n");
+do{
+
+ans = getch();
+switch (ans)
+{
+		case '1':
+		menu();
+		break;
+		
+		case '2':
+		exit(1);
+		break;
+		
+		default:
+			printf("Invalid Input. Please try again.\n");
+			sleep(1);
+		}	
+	
+} while(ans!=2);
+
+}
