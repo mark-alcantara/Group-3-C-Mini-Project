@@ -15,7 +15,7 @@ void View(){
 	char 	ans;
 
 	FILE *file;
-	file=fopen("adding.csv","r");
+	file=fopen("Inventory_ST_NoBOM.csv","r");
 	if (file == NULL)
         {
 		printf("Error Opening File");
@@ -28,19 +28,19 @@ void View(){
 			printf("----------------------------------------------------------------------------------------- \n");
 		 while (fgets(line, 100, file) !=NULL){
 		 	
-		 	sp = strtok(line, ",");
+		 	sp = strtok(line,  ("\",\'") );
 		 	prodID = atoi(sp);
 		 	
-		 	sp = strtok(NULL,",");
+		 	sp = strtok(NULL,("\",\'") );
 		 	strcpy(prodName, sp);
 		 	
-		 	sp = strtok(NULL, ",");
+		 	sp = strtok(NULL, ("\",\'") );
 		 	quantity = atoi(sp);
 		 	
-		 	sp = strtok(NULL,",");
+		 	sp = strtok(NULL,("\",\'") );
 		 	strcpy(expDate, sp);
 		 	
-		 	sp = strtok(NULL,",");
+		 	sp = strtok(NULL,("\",\'"));
 		 	prodPrice = atof(sp);
 
 
@@ -77,3 +77,4 @@ switch (ans)
 } while(ans!=2);
 
 }
+
