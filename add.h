@@ -152,12 +152,12 @@ void adding()
 				}
 				}
 				v[i].prodQuantity=atoi(input);
-				if (v[i].prodQuantity>0 && v[i].prodQuantity<100000)
+				if (v[i].prodQuantity>0 && v[i].prodQuantity<10000)
 				{
 				flag=1;	
 				}
 				else {
-				printf("Invalid Input. Please enter Quantity numbers.\n");
+				printf("Invalid Input. Quantity must be [1-9999], Please try again\n");
 				}
 			}while(flag==0);
 			//Quantity Validation start
@@ -260,7 +260,7 @@ void adding()
 			flag=1;	
 			}
 			else {
-			printf("Invalid Range of prices. Please try again.\n");
+			printf("Invalid Input. Product Price must be [1-9999], Please try again\n");
 			}
 			}while(flag==0);
 			printf("%d, %s, %d, %d-%d-%d, %0.2f\n",v[i].prodID, v[i].prodName, v[i].prodQuantity,v[i].exp.year,v[i].exp.month,v[i].exp.day,v[i].prodPrice);
