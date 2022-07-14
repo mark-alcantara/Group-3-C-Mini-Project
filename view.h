@@ -1,24 +1,27 @@
-void View(){
-int id;
-int i;
-int prodID;
-int flag=0;
-char prodName[30];
-int quantity;
-char expDate[10];
-float prodPrice;
+//view
 
-char line [100]; // size of chars in a line
-char *sp;  //pointer for string
+void View(){
+	
+	system("cls");
+	int id;
+	int i;
+	int prodID;
+	int flag=0;
+	char prodName[30];
+	int quantity;
+	char expDate[10];
+	float prodPrice;
+	char line[100],*sp;
+	int ans;
 
 	FILE *file;
-	file=fopen("Inventory.csv","r");
+	file=fopen("adding.csv","r");
 	if (file == NULL)
         {
 		printf("Error Opening File");
 		exit(1);
 		}
-			printf("\n \n \n");
+			printf("\n \n");
 			printf("                             **** INVENTORY ****\n");
 			printf("----------------------------------------------------------------------------------------- \n");
 			printf("    ID     |          Description            |  Quantity  |  Expiration Date |  Price \n");
@@ -50,5 +53,9 @@ char *sp;  //pointer for string
 
 
 
-fclose(file);		
+	fclose(file);
+printf("Press any key to go back\n");
+scanf("%d",ans);
+
 }
+
