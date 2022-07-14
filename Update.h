@@ -170,7 +170,7 @@ void updatedata()
 									}
 									
 								newqty=atoi(input);
-								if (newqty>0 && newqty<100000)
+								if (newqty>0 && newqty<10000)
 									{	
 										if(checkIDifExist(newqty)==1)	{
 										printf("Item Already Exist");
