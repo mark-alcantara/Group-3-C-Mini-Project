@@ -384,6 +384,7 @@ void updatedata()
 			getch();
 		}
 	}
+}
 	else if(choice == '2'){
 		menu();
 		getch();
