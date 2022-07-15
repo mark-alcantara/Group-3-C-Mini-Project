@@ -50,7 +50,7 @@ void updatedata()
 				sp = strtok(NULL,("\",\"") );
 				temp[i].prodPrice = atof(sp);
 				i++;
-			}printf("AAAAAAAAAAAAAAAAAAAAAA");
+			
 
 		printf("\nEnter the ID you want to update\n");
 		int upd=0;
