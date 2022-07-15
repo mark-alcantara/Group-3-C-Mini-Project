@@ -20,7 +20,7 @@ char line [100]; // size of chars in a line
 char *sp;  //pointer for string
 
 	FILE *file;
-	file=fopen("adding.csv","r");
+	file=fopen("Inventory_ST_NoBOM.csv","r");
 	
 	if (file == NULL)
         {
