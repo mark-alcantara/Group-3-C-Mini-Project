@@ -5,22 +5,17 @@ int checkIDline(int n);
 void updatedata()
 {
 	char line [100];
-	int flag;
+	int flag = 0;
 
-	system("CLS");
+	system("cls");
 	char *sp;
 
 	int i = 1, j;
-	FILE *updateitRead;
-	FILE * updateit;
+	FILE *updateitRead, * updateit;
 
-	
-	printf("[1] Update Item  [2] Back");
-	int choice;
-	choice = getch();
-	if (choice == '1')
-	{
-		system("CLS");
+
+
+		system("cls");
 	
 		updateitRead = fopen("Inventory_ST_NoBOM.csv", "r");
 		if (updateitRead == NULL)
@@ -61,27 +56,14 @@ void updatedata()
 		char newName[30];
 		int newID,newqty,newyear,newmonth,newday;
 		scanf("%d", &upd);
-		linenum = checkIDline(upd);
 
-		
-		
+		linenum = checkIDline(upd);
+		updateit = fopen("Inventory_ST_NoBOM.csv", "w");
+	
 		for (j=1; j <i; j++)
 			{
-				if (temp[i].prodID==upd)
-				{
-					printf("Matched!!!");
-				}
-			}
-				
-		for (j=1; j <i; j++)
-			{
-			if (temp[i].prodID==upd)
-				{				
 				if(j==linenum)
-					{	
-					printf("%d \n", j);
-					printf("%d \n", linenum);
-								
+					{			
 						do 
 							{	
 								flag=0;												
@@ -366,53 +348,34 @@ void updatedata()
 										temp[j].exp.month=newmonth;
 										temp[j].exp.year=newyear;
 										temp[j].prodPrice = newprodPrice;
-//									} 
-								updateit = fopen("Inventory_ST_NoBOM.csv", "w");
-								fprintf(updateit, "\"%d\",\" %s\",\"%d\",\"%d/%d/%d\",\"%0.2f\"\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
-								break;
+									} 
+								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %0.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
 								flag = 1;
 							}
-						}
-						flag = 0;
-					}
 		if (flag == 1)
 		{
-		printf("Updated!");
+		printf("Updated!\n");
 		fclose(updateitRead);
 		fclose(updateit);	
 		}
 		else if (flag == 0)
 		{
-			int ans;
-			printf("Nothing to update. [1]Search again [2] Back to main menu\n");
-			ans = getch();
-			if (ans == 1)
-			{
-				updatedata();
-			}
-			else
-			{
-				menu();
-			}
+			printf("Nothing to update\n");
+			getch();
 		}
 		fflush(stdin);
-		char ans;
-		printf("Update more items ? y/n : ");
+		int ans;
+		printf("Update again ?\n [1] Yes [2] Main menu");
 		ans = getch();
-		if (ans == ('y'||'Y'))
+		if (ans == '1')
 		{
 			updatedata();
 		}
-		else
+		else if (ans == '2')
 		{
 			menu();
-			getch();
 		}
-	}
-	else if(choice == '2'){
-		menu();
-		getch();
-	}
+
 		
 	
 }
@@ -451,7 +414,7 @@ int checkIDline(int n){
 			if (n==v[i].prodID)
 				{
 							printf("Matched ");
-							printf("%d result",linenum);
+							printf("1 result\n",linenum);
 							return linenum;
 						
 						}
