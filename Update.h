@@ -50,7 +50,7 @@ void updatedata()
 				sp = strtok(NULL,("\",\"") );
 				temp[i].prodPrice = atof(sp);
 				i++;
-			
+			}
 
 		printf("\nEnter the ID you want to update\n");
 		int upd=0;
@@ -203,7 +203,7 @@ void updatedata()
 									}
 									
 								newyear=atoi(input);
-								if (newyear>1900)
+								if (newyear>1899 & newyear<10000 )
 									{	
 										if(checkIDifExist(newyear)==1)	{
 										printf("Item Already Exist");
@@ -384,7 +384,6 @@ void updatedata()
 			getch();
 		}
 	}
-}
 	else if(choice == '2'){
 		menu();
 		getch();
