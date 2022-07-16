@@ -61,15 +61,26 @@ void updatedata()
 		char newName[30];
 		int newID,newqty,newyear,newmonth,newday;
 		scanf("%d", &upd);
-
 		linenum = checkIDline(upd);
-		updateit = fopen("Inventory_ST_NoBOM.csv", "w");
+
 		
 		
 		for (j=1; j <i; j++)
 			{
+				if (temp[i].prodID==upd)
+				{
+					printf("Matched!!!");
+				}
+			}
+				
+		for (j=1; j <i; j++)
+			{
+			if (temp[i].prodID==upd)
+				{				
 				if(j==linenum)
 					{	
+					printf("%d \n", j);
+					printf("%d \n", linenum);
 								
 						do 
 							{	
@@ -355,10 +366,15 @@ void updatedata()
 										temp[j].exp.month=newmonth;
 										temp[j].exp.year=newyear;
 										temp[j].prodPrice = newprodPrice;
-									} 
-								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %0.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+//									} 
+								updateit = fopen("Inventory_ST_NoBOM.csv", "w");
+								fprintf(updateit, "\"%d\",\" %s\",\"%d\",\"%d/%d/%d\",\"%0.2f\"\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+								break;
 								flag = 1;
 							}
+						}
+						flag = 0;
+					}
 		if (flag == 1)
 		{
 		printf("Updated!");
@@ -367,12 +383,21 @@ void updatedata()
 		}
 		else if (flag == 0)
 		{
-			printf("Nothing to update");
-			menu();
+			int ans;
+			printf("Nothing to update. [1]Search again [2] Back to main menu\n");
+			ans = getch();
+			if (ans == 1)
+			{
+				updatedata();
+			}
+			else
+			{
+				menu();
+			}
 		}
 		fflush(stdin);
 		char ans;
-		printf("Add more items ? y/n : ");
+		printf("Update more items ? y/n : ");
 		ans = getch();
 		if (ans == ('y'||'Y'))
 		{
