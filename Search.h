@@ -1,6 +1,4 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include <string.h>
+//Search
 
 struct product {
 int prodID;
@@ -8,16 +6,11 @@ char prodName[30];
 int quantity;
 char expDate[10];
 float prodPrice;
-} ;
-
-
-void menu();
+};
 
 
 
-
-
-void Search(){
+void searchdata(){
 char ans;
 struct product prod;
 int id;
@@ -27,7 +20,7 @@ char line [100]; // size of chars in a line
 char *sp;  //pointer for string
 
 	FILE *file;
-	file=fopen("Inventory.csv","r");
+	file=fopen("Inventory_ST_NoBOM.csv","r");
 	
 	if (file == NULL)
         {
@@ -42,19 +35,19 @@ char *sp;  //pointer for string
 	{		
 		while (fgets(line, 100, file) !=NULL)
 		{
-			sp = strtok(line, ",");
+			sp = strtok(line, ("\",\""));
 			prod.prodID = atoi(sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			strcpy(prod.prodName, sp);
 			 	
-			sp = strtok(NULL, ",");
+			sp = strtok(NULL, ("\",\""));
 			prod.quantity = atoi(sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			strcpy(prod.expDate, sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			prod.prodPrice = atof(sp);
 			
 			if (id==prod.prodID)
@@ -71,12 +64,12 @@ char *sp;  //pointer for string
 						if (ans=='Y'|| ans=='y')
 							{
 								fclose(file);
-								Search();
+								searchdata();
 							}
 						else if (ans=='N'|| ans=='n')
 							{
 							fclose(file);
-							printf("back to main menu");
+					//	main();
 							}
 						else{
 							printf("Invalid input. Please try again\n");
@@ -92,12 +85,12 @@ char *sp;  //pointer for string
 			if (ans=='Y'|| ans=='y')
 			{
 				fclose(file);
-				Search();
+				searchdata();
 			}
 			else if (ans=='N'|| ans=='n')
 			{
 				fclose(file);
-				printf("back to main menu");
+			//	 main();
 			}
 			else
 			{
@@ -115,12 +108,12 @@ char *sp;  //pointer for string
 		if (ans=='Y'|| ans=='y')
 		{
 			fclose(file);
-			Search();
+			searchdata();
 		}
 		else if (ans=='N'|| ans=='n')
 		{
 			fclose(file);
-			printf("back to main menu");
+		menu();
 		}
 		else
 		{
@@ -129,10 +122,3 @@ char *sp;  //pointer for string
 	}		
 fclose(file);		
 }
-
-
-int main (){
- Search();
- printf("\n[a]view");
-}
-

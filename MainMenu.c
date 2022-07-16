@@ -1,54 +1,71 @@
+///Main
 #include <stdio.h>
-#include <conio.h>
-#include <stdlib.h>
 #include <string.h>
-#include "Search.h"
-#include "View.h"
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+
 #include "Add.h"
 #include "Update.h"
+#include "Search.h"
+#include "View.h"
 
-void Add();
-void Update();
+#define MAXINPUT 100
+void menu();
+void adding();
+void updatedata();
+void searchdata();
 void View();
-void Search();
+int checkIDifExist(int id);
+int checkIDline(int n);
 
-int main(){
 
-int opt;
-do { 
-    system("CLS");
-    printf("MAIN MENU\n");
-    printf(" [1] Add Inventory Item \n");
-    printf(" [2] Update Inventory Item \n");
-    printf(" [3] View Inventory Item \n");
-    printf(" [4] Search Inventory Item \n");
-    printf(" [5] Exit \n \n");
-    
-    printf("Enter choice: \n");
-    scanf("%d", &opt);
-    switch (opt){
-    	
-    	case 1:
-    		Add();
-    		break;
-    	case2;
-    		Update();
-    		break;
-    	case 3:
-    		View();
-    		break;
-    	case 4:
-    		Search();
-    		break;
-    	case 5
-    		exit(1);
-    	default:
-    		printf("Invalid Input. Please try again.");
-    		break;
-	}
-
-} while (opt != 5);
-
-return 0; 
+int main()
+{
+menu();
 }
 
+void menu()
+{
+	int subMenu;
+	do{
+	system("cls"); //Menu of the program
+	char subMenu;
+	printf("\n \n");
+			printf("****************************** INVENTORY MANAGEMENT SYSTEM ******************************\n\n");
+			printf("----------------------------------------------------------------------------------------- \n");
+				printf("[1]Add Inventory Item \n[2]Update Inventory Item\n[3]Search Inventory Item\n[4]View Inventory Item\n[5]Back\n");
+			printf("----------------------------------------------------------------------------------------- \n");
+
+	subMenu = getch();
+	switch (subMenu)
+	{
+		case '1':
+		adding();
+		break;
+		
+		case '2':
+		updatedata();
+		break;
+		
+		case '3':
+		searchdata();
+		break;
+		
+		case '4':
+		View();
+		break;
+		
+		case '5':
+		menu();
+		break;
+		
+		default:
+
+			printf("Invalid Input. Please try again.");
+			sleep(1);
+			menu();
+		}
+	}while(subMenu!=5);
+
+}
