@@ -35,19 +35,19 @@ char *sp;  //pointer for string
 	{		
 		while (fgets(line, 100, file) !=NULL)
 		{
-			sp = strtok(line, ",");
+			sp = strtok(line, ("\",\""));
 			prod.prodID = atoi(sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			strcpy(prod.prodName, sp);
 			 	
-			sp = strtok(NULL, ",");
+			sp = strtok(NULL, ("\",\""));
 			prod.quantity = atoi(sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			strcpy(prod.expDate, sp);
 			 	
-			sp = strtok(NULL,",");
+			sp = strtok(NULL,("\",\""));
 			prod.prodPrice = atof(sp);
 			
 			if (id==prod.prodID)
@@ -113,6 +113,7 @@ char *sp;  //pointer for string
 		else if (ans=='N'|| ans=='n')
 		{
 			fclose(file);
+		menu();
 		}
 		else
 		{
