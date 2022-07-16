@@ -349,7 +349,7 @@ void updatedata()
 										temp[j].exp.year=newyear;
 										temp[j].prodPrice = newprodPrice;
 									} 
-								fprintf(updateit, "%d, %s, %d, %d/%d/%d, %0.2f\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+								fprintf(updateit, "\"%d\",\"%s\",\"%d\",\"%d/%d/%d\",\"%0.2f\"\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
 								flag = 1;
 							}
 		if (flag == 1)
