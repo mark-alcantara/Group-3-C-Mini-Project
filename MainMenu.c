@@ -5,7 +5,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "Add.h"
+#include "add.h"
 #include "Update.h"
 #include "Search.h"
 #include "View.h"
