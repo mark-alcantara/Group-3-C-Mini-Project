@@ -31,7 +31,7 @@ char *sp;  //pointer for string
 	printf("Enter ID to search: ");
 	scanf("%d", &id);
 	
-	if ( id>0 &&  id<99999)
+	if ( id>0 &&  id<100000)
 	{		
 		while (fgets(line, 100, file) !=NULL)
 		{
@@ -53,12 +53,12 @@ char *sp;  //pointer for string
 			if (id==prod.prodID)
 				{
 					flag=2;
-					printf("Item found.");
+					printf("Item found.\n");
 					printf("                             ***** INVENTORY *****\n");
-					printf("------------------------------------------------------------------------------- \n");
+					printf("---------------------------------------------------------------------------------------- \n");
 					printf("    ID     |          Description            |  Quantity  |  Expiration Date |  Price \n");
 					printf("    %-8d %-33s %-13d %-15s    %.02f \n",prod.prodID, prod.prodName, prod.quantity,prod.expDate,prod.prodPrice);	
-					printf("------------------------------------------------------------------------------- \n");
+					printf("---------------------------------------------------------------------------------------- \n");
 					printf("Search Again? (y/n) : ");
 					scanf("%s", &ans);	
 						if (ans=='Y'|| ans=='y')
