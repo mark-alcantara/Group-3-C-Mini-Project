@@ -6,7 +6,6 @@ void updatedata()
 {
 	char line [100];
 	int flag = 0;
-
 	system("cls");
 	char *sp;
 
@@ -35,9 +34,9 @@ void updatedata()
 				sp = strtok(NULL, ("\",\"") );
 				temp[i].prodQuantity = atoi(sp);
 				
-				sp = strtok(NULL,"-");
+				sp = strtok(NULL,("-"));
 				temp[i].exp.year= atoi(sp);
-				sp = strtok(NULL,"-");
+				sp = strtok(NULL,("-"));
 				temp[i].exp.month= atoi(sp);
 				sp = strtok(NULL,("\",\""));
 				temp[i].exp.day= atoi(sp);
@@ -58,8 +57,8 @@ void updatedata()
 		scanf("%d", &upd);
 
 		linenum = checkIDline(upd);
-		updateit = fopen("Inventory_ST_NoBOM.csv", "w");
-	
+
+		
 		for (j=1; j <i; j++)
 			{
 				if(j==linenum)
@@ -348,18 +347,28 @@ void updatedata()
 										temp[j].exp.month=newmonth;
 										temp[j].exp.year=newyear;
 										temp[j].prodPrice = newprodPrice;
-									} 
-								fprintf(updateit, "\"%d\",\"%s\",\"%d\",\"%d/%d/%d\",\"%0.2f\"\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+									}
+								updateit = fopen("Inventory_ST_NoBOM.csv", "w");	 
+								fprintf(updateit, "\"%d\",\"%s\",\"%d\",\"%d-%d-%d\",\"%0.2f\"\n", temp[j].prodID,temp[j].prodName, temp[j].prodQuantity, temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
 								flag = 1;
 							}
-		if (flag == 1)
+		if (j == linenum)
 		{
 		printf("Updated!\n");
 		fclose(updateitRead);
 		fclose(updateit);	
 		}
-		else if (flag == 0)
+		else if (j != linenum)
 		{
+
+			updateit = fopen("Inventory_ST_NoBOM.csv", "w");			
+		for (j=1; j<i; j++)
+			{
+
+			fprintf(updateit, "\"%d\",\"%s\",\"%d\",\"%d-%d-%d\",\"%0.2f\"\n", temp[j].prodID, temp[j].prodName, temp[j].prodQuantity,temp[j].exp.year,temp[j].exp.month,temp[j].exp.day,temp[j].prodPrice);
+			}
+			fclose(updateitRead);
+			fclose(updateit);
 			printf("Nothing to update\n");
 			getch();
 		}
@@ -415,14 +424,14 @@ int checkIDline(int n){
 				{
 							printf("Matched ");
 							printf("1 result\n",linenum);
+							fclose(filep);
 							return linenum;
 						
 						}
 						
 						
 				}
-			
+
 				fclose(filep);
-				return linenum;
 			
 }

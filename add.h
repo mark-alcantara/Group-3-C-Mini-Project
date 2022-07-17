@@ -170,7 +170,7 @@ void adding()
 				char input[MAXINPUT] = "";
 				
 				printf("Input Expiration date (yyyy-mm-dd): \n");
-				printf("\tYear [1900+]:");
+				printf("\tYear [1900 - 9999]:");
 				scanf ("%s", input);
 				length = strlen (input);
 					for (j=0;j<length; j++)
@@ -203,7 +203,7 @@ void adding()
 				char input[MAXINPUT] = "";
 				fflush(stdin);
 				
-				printf("\tMonth :");
+				printf("\tMonth [01 -12] :");
 				scanf ("%s", input);
 				
 				length = strlen (input);
@@ -238,7 +238,7 @@ void adding()
 				char input[MAXINPUT] = "";
 				fflush(stdin);
 				
-				printf("\tDay :");
+				printf("\tDay [01 - 31] :");
 				scanf ("%s", input);
 				length = strlen (input);
 					for (j=0;j<length; j++)
